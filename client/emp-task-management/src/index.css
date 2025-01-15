@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  color: #fff;
+}
+body {
+  padding: 0;
+  margin: 0;
+}
+body {
+  background-color: #111;
+}
+
+header {
+  background-color: #1c1c1c;
+}
+.d-bg {
+  background-color: #1c1c1c;
+}
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+}
+.animated-bar {
+  animation: moveDash 2s linear infinite;
+}
+@keyframes moveDash {
+  0% { left: 0; }
+  100% { left: calc(100% - 2.5rem); }
+}
+.animated-div {
+  background-color: red;
+  animation: moveAndChangeColor 4s infinite;
+}
+@keyframes moveAndChangeColor {
+  0% {
+    top: 0;
+    left: 0;
+    background-color: red;
+  }
+  25% {
+    top: 0;
+    left: calc(100% - 50px);
+    background-color: green;
+  }
+  50% {
+    top: calc(100% - 50px);
+    left: calc(100% - 50px);
+    background-color: blue;
+  }
+  75% {
+    top: calc(100% - 50px);
+    left: 0;
+    background-color: yellow;
+  }
+  100% {
+    top: 0;
+    left: 0;
+    background-color: red;
+  }
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  box-shadow: 0 0 0px 1000px transparent inset;
+  -webkit-text-fill-color: white;
+  color: white;
+}
+.dv {
+  cursor: pointer;
+  transition: .3s linear;
+}
+.dv1:hover {
+  transform: rotateX(15deg);
+  box-shadow: 0 10px 15px #fff;
+}
+.dv2:hover {
+  transform: rotateX(-15deg);
+  box-shadow: 0 -10px 15px #fff;
+}
+.dv3:hover {
+  transform: rotateY(15deg);
+  box-shadow: -10px 0px 15px #fff;
+}
+.dv4:hover {
+  transform: rotate
+}
