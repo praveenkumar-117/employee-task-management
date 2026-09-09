@@ -1,10 +1,7 @@
 {
   "functions": {
     "server.js": {
-      "includeFiles": [
-        "node_modules/debug/src/common.js",
-        "node_modules/iconv-lite/**"
-      ]
+      "includeFiles": "node_modules/**"
     }
   }
 }
