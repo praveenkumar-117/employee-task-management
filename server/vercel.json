@@ -1,7 +1,15 @@
 {
-  "functions": {
-    "server.js": {
-      "includeFiles": "node_modules/**"
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
     }
-  }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "server.js"
+    }
+  ]
 }
