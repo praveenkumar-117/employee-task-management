@@ -1,19 +1,16 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const passport = require("./config/passport-config")
-const session = require('express-session')
-const dbConect = require("./utils/db")
-const authRouter = require("./router/auth-router")
-const adminRouter = require("./router/admin-router")
-const empRouter = require("./router/emp-router")
+
+const dbConect = require("./utils/db");
+const authRouter = require("./router/auth-router");
+const adminRouter = require("./router/admin-router");
+const empRouter = require("./router/emp-router");
 const errorsMiddleware = require("./middleware/errors-Middleware");
-const loggingMiddleware = require("./middleware/logging-middleware")
-const rateLimiter = require("./middleware/rate-limit-middleware")
+const loggingMiddleware = require("./middleware/logging-middleware");
+const rateLimiter = require("./middleware/rate-limit-middleware");
 
 const app = express();
-
-
 
 const corsOptions = {
   origin: "http://localhost:5173",
@@ -22,34 +19,26 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false, saveUninitialized: false,
-}));
 
 app.use(loggingMiddleware);
 app.use(rateLimiter);
-app.use(passport.initialize());
-app.use(passport.session());
 
-app.use("/api/auth", authRouter)
-app.use("/api/admin", adminRouter)
-app.use("/api/employee", empRouter)
+app.use("/api/auth", authRouter);
+app.use("/api/admin", adminRouter);
+app.use("/api/employee", empRouter);
 
-// app.get("/", (req, res) => {
-//   req.status(200).send("welcome");
-// })
 
 
 const PORT = 7000;
 
-dbConect().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server Is Listning At http://localhost/${PORT}`)
+dbConect()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server Is Listning At http://localhost/${PORT}`);
+    });
   })
-}).catch((err) => {
-  console.error("Failed to connect to database:", err);
-})
-
+  .catch((err) => {
+    console.error("Failed to connect to database:", err);
+  });
 
 app.use(errorsMiddleware);
