@@ -5,7 +5,8 @@ export const AuthContext = createContext();
  
 
 export const AuthProvider = ({ children }) => {
-const url = "http://localhost:7000";
+// const url = "http://localhost:7000";
+const url = "https://employee-task-management-tmm4.onrender.com";
  
   const [token, setToken] = useState(sessionStorage.getItem("token"));
   const [user, setUser] = useState("");
