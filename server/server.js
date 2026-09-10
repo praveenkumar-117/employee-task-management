@@ -29,7 +29,7 @@ app.use("/api/employee", empRouter);
 
 
 
-const PORT = 7000;
+const PORT = process.env.PORT || 7000;
 
 dbConect()
   .then(() => {
