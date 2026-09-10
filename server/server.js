@@ -13,10 +13,11 @@ const rateLimiter = require("./middleware/rate-limit-middleware");
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "https://employee-task-management-1-86b7.onrender.com",
   methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
   credentials: true,
 };
+
 app.use(cors(corsOptions));
 app.use(express.json());
 
