@@ -5,6 +5,7 @@ import { TbReload } from "react-icons/tb";
 
 const Employees = () => {
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const colors = [
     "border-rose-500",
@@ -20,6 +21,8 @@ const Employees = () => {
 
   const getEmpData = async () => {
     try {
+      setIsLoading(true);
+
       const response = await fetch(`${url}/api/admin/employee`, {
         method: "GET",
         headers: {
@@ -37,6 +40,8 @@ const Employees = () => {
       }
     } catch (error) {
       toast.error("Unable to connect with server");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -71,14 +76,17 @@ const Employees = () => {
       {!dataLoaded ? (
         <div className="flex flex-col gap-2 items-center justify-center py-4 text-slate-900">
           <button
-            className="bg-emerald-500 text-2xl py-2 px-2 text-white rounded-full hover:bg-emerald-700 hover:font-semibold"
+            disabled={isLoading}
+            className="bg-emerald-500 text-2xl py-2 px-2 text-white rounded-full hover:bg-emerald-700 hover:font-semibold disabled:opacity-50"
             onClick={getEmpData}
           >
-            <TbReload />
+            {isLoading ? "⟳" : <TbReload />}
           </button>
 
           <label className="text-xl font-medium">
-            Load Employee Details
+            {isLoading
+              ? "Loading Employee Details..."
+              : "Load Employee Details"}
           </label>
         </div>
       ) : (

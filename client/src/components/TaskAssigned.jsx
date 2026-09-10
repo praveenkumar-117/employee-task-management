@@ -6,6 +6,7 @@ import { TbReload } from "react-icons/tb";
 const TaskAssigned = () => {
   const [task, setTask] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { authrizationToken, url } = useAuthentication();
 
@@ -19,6 +20,8 @@ const TaskAssigned = () => {
 
   const getTask = async () => {
     try {
+      setIsLoading(true);
+
       const response = await fetch(`${url}/api/admin/gettask`, {
         method: "GET",
         headers: {
@@ -36,6 +39,8 @@ const TaskAssigned = () => {
       }
     } catch (error) {
       toast.error("Unable to connect with server");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -43,18 +48,17 @@ const TaskAssigned = () => {
     <>
       {!dataLoaded ? (
         <div className="flex flex-col gap-2 items-center justify-center py-4">
-
           <button
-            className="bg-emerald-500 text-2xl text-white py-2 px-2 rounded-full hover:bg-emerald-700 hover:font-semibold"
+            disabled={isLoading}
+            className="bg-emerald-500 text-2xl text-white py-2 px-2 rounded-full hover:bg-emerald-700 hover:font-semibold disabled:opacity-50"
             onClick={getTask}
           >
-            <TbReload />
+            {isLoading ? "⟳" : <TbReload />}
           </button>
 
           <label className="text-xl">
-            Load Assigned Task
+            {isLoading ? "Loading Assigned Tasks..." : "Load Assigned Task"}
           </label>
-
         </div>
       ) : (
         <>
@@ -73,7 +77,6 @@ const TaskAssigned = () => {
                     colors[index % colors.length]
                   }`}
                 >
-
                   <span className="w-1/4">
                     {currTask.employee?.name}
                   </span>
@@ -111,7 +114,6 @@ const TaskAssigned = () => {
                           ? "Accepted"
                           : "Pending"}
                   </span>
-
                 </div>
               ))
             ) : (
